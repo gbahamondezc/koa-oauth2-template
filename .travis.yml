@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - v6
+  - v5
+  - v4
+
+sudo: false
+
+cache:
+  directories:
+    - node_modules
+
+script: "gulp"

@@ -1,3 +1,5 @@
+'use strict';
+
 var thinky = require('../thinky-conn.js');
 var type = thinky.type;
 

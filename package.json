@@ -1,6 +1,6 @@
 {
-  "name": "back",
-  "version": "1.0.0",
+  "name": "koa-oauth2-template",
+  "version": "0.0.1",
   "description": "KoaJS, rethinkdb, starter project",
   "main": "gulpfile.js",
   "scripts": {
@@ -10,6 +10,10 @@
     "KoaJS",
     "rethinkdb"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gbahamondez/koa-oauth2-template.git"
+  },
   "babel": {
     "presets": [
       "es2015"

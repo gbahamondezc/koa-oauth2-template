@@ -1,3 +1,3 @@
 module.exports = {
-  db : 'mantle'
+  db : 'template'
 };

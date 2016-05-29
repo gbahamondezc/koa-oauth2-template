@@ -1,7 +1,13 @@
 'use strict';
 
 const request = require('request-promise');
-var qs = require('querystring');
+const qs = require('querystring');
+const path = require('path');
+const utils = require('./utils.js');
+const secrets = require(path.join(
+  path.resolve(), './config/oauth2-secrets.js')
+);
+
 
 class OAuth2Model {
 
@@ -46,17 +52,30 @@ class OAuth2Model {
     });
   }
 
-
   getUser(username, password, callback) {
     this.models.User.filter({
-      email    : username,
-      password : password
+      email    : username
     })
     .then(users => {
-      if (!users.length) {
+      if (users.length) {
+        utils.comparePassword(
+          password,
+          users[0].password
+        )
+        .then(match => {
+          if (match) {
+            var user = users[0];
+            delete user.password;
+            return callback(null, user);
+          }
+          return callback(null, false);
+        })
+        .catch(err => {
+          return callback(err);
+        });
+      } else {
         return callback(null, false);
       }
-      return callback(null, users[0]);
     })
     .catch(err => {
       return callback(err);
@@ -231,7 +250,7 @@ class OAuth2Model {
     var params = {
       code : authCode,
       client_id : clientId,
-      client_secret : '730e604cab2a041ee7a6a24d7c3a2566602cc360',
+      client_secret : secrets.github,
       redirect_uri : redirectUrl
     };
     return  request.get({
@@ -289,7 +308,7 @@ class OAuth2Model {
     var params = {
       code : authCode,
       client_id : clientId,
-      client_secret : 'bSaJ2UAKlRycCrmM_7LRaqFF',
+      client_secret : secrets.google,
       redirect_uri : redirectUri,
       grant_type : 'authorization_code'
     };

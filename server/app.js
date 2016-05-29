@@ -42,7 +42,7 @@ app.use(function (ctx, next) {
 // Public routes
 app.use(router({
   path : './server/routes/public.js',
-  args : [app.oauth.grant()]
+  args : [models, app.oauth.grant()]
 }));
 
 // Private api routes inject models

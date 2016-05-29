@@ -57,7 +57,7 @@ class OAuth2Model {
       email    : username
     })
     .then(users => {
-      if (users.length) {
+      if (users.length && users[0].password) {
         utils.comparePassword(
           password,
           users[0].password

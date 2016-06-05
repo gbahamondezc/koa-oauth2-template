@@ -1,30 +1,31 @@
 'use strict';
 
-module.exports = function($models) {
+module.exports = function($services) {
 
   this.get('/user/info', function* () {
     var token = this.request.headers.authorization.split(' ')[1];
-    var accessToken = yield $models.OAuthAccessToken.filter({
-      accessToken : token
-    });
-    var user = yield $models.User.get(accessToken[0].userId);
+
+    var accessToken = yield $services.AccessToken
+      .getOneByToken(token);
+
+    var user = yield $services.User
+      .getById(accessToken.userId);
+
     this.body = {
-      email  : user.email,
-      locale : user.locale,
-      name   : user.name,
+      email   : user.email,
+      locale  : user.locale,
+      name    : user.name,
       picture : user.picture
     };
   });
 
 
   this.post('/user', function* () {
-    var user = yield $models.User.filter({
-      email : this.request.body.email
-    });
-    if (!user.length) {
+    var user = yield $services.User.getOneByEmail(this.request.body.email);
+    if (!user) {
       this.status = 404;
-      this.body = [];
+      this.body   = [];
     }
-    this.body = user[0];
+    this.body = user;
   });
 };

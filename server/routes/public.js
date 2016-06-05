@@ -1,6 +1,6 @@
 'use strict';
 
-var utils = require('../utils.js');
+var utils = require('../../lib/utils.js');
 
 
 module.exports = function ($models, grant) {
@@ -38,7 +38,7 @@ module.exports = function ($models, grant) {
 
     if (existByUsername.length) {
       this.status = 409;
-      this.body =  this.body   = {
+      this.body = {
         field   : 'username',
         message : 'Username ' + this.request.body.username + ' is already in use.'
       };

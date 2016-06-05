@@ -1,4 +1,4 @@
-// r.db('mantle').table('OAuthClient').delete();
+// r.db('template').table('OAuthClient').delete();
 r.db('template').table('OAuthClient');
 
 // r.db('template').table('User').delete();

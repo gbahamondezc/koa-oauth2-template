@@ -41,13 +41,16 @@
   "dependencies": {
     "bcrypt": "^0.8.6",
     "bluebird": "^3.4.0",
+    "co": "^4.6.0",
     "kcors": "^2.1.1",
     "koa": "^2.0.0",
     "koa-bodyparser": "^3.1.0",
     "koa-load-routes": "^1.1.1",
     "koa-logger": "^2.0.0",
     "koa-oauth-server": "^1.0.1",
+    "readdir-plus": "^0.4.1",
     "request-promise": "^3.0.0",
-    "thinky": "^2.3.2"
+    "thinky": "^2.3.2",
+    "thinky-loader": "0.0.3"
   }
 }

@@ -19,11 +19,13 @@ module.exports = function ($models, grant) {
 
   this.post('/signup', function *(next) {
     var user = this.request.body;
-    var existsByEmail = yield $models.User.filter({
-      email : user.email
+    var existsByEmail = yield $models.User.find({
+      where : {
+        email : user.email
+      }
     });
 
-    if (existsByEmail.length) {
+    if (existsByEmail) {
       this.status = 409;
       this.body = {
         field   : 'email',
@@ -32,11 +34,13 @@ module.exports = function ($models, grant) {
       return next;
     }
 
-    var existByUsername = yield $models.User.filter({
-      username : user.username
+    var existByUsername = yield $models.User.find({
+      where : {
+        username : user.username
+      }
     });
 
-    if (existByUsername.length) {
+    if (existByUsername) {
       this.status = 409;
       this.body = {
         field   : 'username',
@@ -47,7 +51,7 @@ module.exports = function ($models, grant) {
 
     try {
       user.password = yield utils.hashPassword(user.password);
-      var result = yield $models.User.save(user);
+      var result = yield $models.User.create(user);
       delete user.password;
       this.body = result;
     } catch (ex) {

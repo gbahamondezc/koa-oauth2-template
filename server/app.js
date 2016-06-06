@@ -9,26 +9,22 @@ const cors         = require('kcors');
 const bodyParser   = require('koa-bodyparser');
 const OAuth2Server = require('koa-oauth-server');
 const router       = require('koa-load-routes');
+const SequelizeModels = require('sequelize-models');
+
 
 // Config and own libraries
 const appConfig      = require(join(resolve(), 'config/app.js'));
 const dbConfig       = require(join(resolve(), 'config/database.js'));
 const OAuth2Model    = require(join(resolve(), 'lib/oauth2-model.js'));
-const ThinkyModels   = require(join(resolve(), 'lib/thinky-models.js'));
 const ServicesLoader = require(join(resolve(), 'lib/services-loader.js'));
 
-
-var thinkyModels = new ThinkyModels({
-  modelsPath : join(resolve(), 'server', 'models'),
-  rethink    : dbConfig
-});
-
+var seqModels = new SequelizeModels(dbConfig);
 
 var models = {};
 
-thinkyModels.getModels()
-  .then(thinkyModels => {
-    models = thinkyModels;
+seqModels.getSchema()
+  .then(schema => {
+    models = schema.models;
     var serviceLoader  = new ServicesLoader({
       servicesPath : join(resolve(), 'server', 'services'),
       args : [models]

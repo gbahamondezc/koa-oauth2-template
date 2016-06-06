@@ -14,7 +14,8 @@
     "no-trailing-spaces" : [0],
     "no-negated-condition" : [0],
     "quote-props" : [0],
-    "require-yield" : [0]
+    "require-yield" : [0],
+    "camelcase" : [0]
   },
   "env": {
     "mocha": true,

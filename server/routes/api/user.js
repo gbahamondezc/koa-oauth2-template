@@ -9,7 +9,7 @@ module.exports = function($services) {
       .getOneByToken(token);
 
     var user = yield $services.User
-      .getById(accessToken.userId);
+      .getById(accessToken.user_id);
 
     this.body = {
       email   : user.email,

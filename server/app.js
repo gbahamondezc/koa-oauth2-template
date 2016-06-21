@@ -79,4 +79,7 @@ seqModels.getSchema()
     app.listen(appConfig.port, () => {
       console.log(`App started at http://127.0.0.1:${appConfig.port}/`);
     });
+  })
+  .catch(err => {
+    throw err;
   });

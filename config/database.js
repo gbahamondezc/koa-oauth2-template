@@ -1,3 +1,5 @@
+const chalk = require('chalk');
+
 module.exports = {
   // Database connection options
   connection : {
@@ -21,6 +23,11 @@ module.exports = {
       freezeTableName : true,
       underscored     : true
     },
-    omitNull : true
+    omitNull : true,
+    logging  : function(query) {
+      var log = chalk.cyan(query.replace('Executing (default): ', ''));
+      var prefix = chalk.white.bold('Query => ');
+      console.log(prefix, log);
+    }
   }
 };

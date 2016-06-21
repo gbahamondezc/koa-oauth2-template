@@ -12,11 +12,13 @@ module.exports = function($services) {
       .getById(accessToken.user_id);
 
     this.body = {
-      email   : user.email,
-      locale  : user.locale,
-      name    : user.name,
-      picture : user.picture
+      email    : user.email,
+      locale   : user.locale,
+      name     : user.name,
+      picture  : user.picture,
+      username : user.username
     };
+    
   });
 
 
